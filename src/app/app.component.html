@@ -1,0 +1,36 @@
+
+<div class="container">
+  <div>
+    <b>Super Calculator</b>
+    <form class="form-inline">
+      <input name="first" [(ngModel)]="first" type="text" class="input-small"/>
+      <select name="operator" [(ngModel)]="operator" class="span1">
+        <option value="{{operators[key]}}" *ngFor="let key of Object.keys(operators)">{{key}}</option>
+      </select>
+      <input name="second" [(ngModel)]="second" type="text" class="input-small"/>
+      <button (click)="doAddition()" id="gobutton" class="btn btn-secondary">Go!</button><br>
+      &nbsp;&nbsp;<b>{{latest}}</b>
+    </form>
+  </div>
+  <br>
+
+  <b>History</b>
+  <table class="table">
+    <thead><tr>
+      <th>Time</th>
+      <th>Expression</th>
+      <th>Result</th>
+    </tr></thead>
+    <tr *ngFor="let result of memory">
+      <td>
+        {{result.timestamp | date:'mediumTime'}}
+      </td>
+      <td>
+        <span>{{result.first}}</span>
+        <span>{{result.operator}}</span>
+        <span>{{result.second}}</span>
+      </td>
+      <td>{{result.value}}</td>
+    </tr>
+  </table>
+</div>

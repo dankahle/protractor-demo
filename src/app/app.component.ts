@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
+import * as _ from 'lodash';
 
 @Component({
   selector: 'dk-root',
@@ -6,4 +7,58 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
+  first: string;
+  second: string;
+  Object = Object;
+
+  memory = [];
+  latest = '0';
+  operators = {
+    ADDITION: '+',
+    SUBTRACTION: '-',
+    MULTIPLICATION: '*',
+    DIVISION: '/',
+    MODULO: '%'
+  };
+  operator = this.operators.ADDITION;
+
+  constructor() {
+    // this.first = '1';
+    // this.second = '2';
+  }
+
+
+  doAddition() {
+    let latestResult;
+    const first = parseInt(this.first, 10);
+    const second = parseInt(this.second, 10);
+    switch (this.operator) {
+      case '+':
+        latestResult = first + second;
+        break;
+      case '-':
+        latestResult = first - second;
+        break;
+      case '*':
+        latestResult = first * second;
+        break;
+      case '/':
+        latestResult = first / second;
+        break;
+      case '%':
+        latestResult = first % second;
+        break;
+    }
+    this.memory.unshift({
+      timestamp: new Date(),
+      first: this.first,
+      operator: this.operator,
+      second: this.second,
+      value: latestResult
+    });
+    this.first = this.second = '';
+    this.latest = latestResult;
+}
+
+
 }

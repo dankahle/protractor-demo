@@ -7,6 +7,9 @@ import * as _ from 'lodash';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
+  theValue = 'lowercase';
+  first1 = 'lala';
+
   first: string;
   second: string;
   Object = Object;
@@ -28,7 +31,7 @@ export class AppComponent {
   }
 
 
-  doAddition() {
+  doCalc() {
     let latestResult;
     const first = parseInt(this.first, 10);
     const second = parseInt(this.second, 10);

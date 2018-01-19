@@ -3,13 +3,13 @@
   <div>
     <b>Super Calculator</b>
     <form class="form-inline">
-      <input name="first" [(ngModel)]="first" type="text" class="input-small"/>
-      <select name="operator" [(ngModel)]="operator" class="span1">
+      <input name="first" [(ngModel)]="first" type="text" class="input-small inputclass"/>
+      <select name="operator" [(ngModel)]="operator">
         <option value="{{operators[key]}}" *ngFor="let key of Object.keys(operators)">{{key}}</option>
       </select>
       <input name="second" [(ngModel)]="second" type="text" class="input-small"/>
-      <button (click)="doAddition()" id="gobutton" class="btn btn-secondary">Go!</button><br>
-      &nbsp;&nbsp;<b>{{latest}}</b>
+      <button (click)="doCalc()" id="gobutton" class="btn btn-secondary">Go!</button><br>
+      &nbsp;&nbsp;<b id="result">{{latest}}</b>
     </form>
   </div>
   <br>
@@ -22,15 +22,15 @@
       <th>Result</th>
     </tr></thead>
     <tr *ngFor="let result of memory">
-      <td>
+      <td class="hist-time">
         {{result.timestamp | date:'mediumTime'}}
       </td>
-      <td>
+      <td class="hist-expr">
         <span>{{result.first}}</span>
         <span>{{result.operator}}</span>
         <span>{{result.second}}</span>
       </td>
-      <td>{{result.value}}</td>
+      <td class="hist-result">{{result.value}}</td>
     </tr>
   </table>
 </div>

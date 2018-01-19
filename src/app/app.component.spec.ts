@@ -57,20 +57,16 @@ describe('AppComponent', () => {
     calcHtml(firstVal, secondVal, operatorVal?) {
       this.first.value = firstVal.toString();
       this.first.dispatchEvent(new Event('input'));
-      fixture.detectChanges();
-      tick();
-      fixture.detectChanges();
       this.second.value = secondVal.toString();
       this.second.dispatchEvent(new Event('input'));
       if (operatorVal) {
-        (<HTMLOptionElement>this.selOperator.querySelector(`option [value="${operatorVal}"]`)).click();
+        // (<HTMLOptionElement>this.selOperator.querySelector(`option[value="${operatorVal}"]`)).click();
+        this.selOperator.value = operatorVal;
+        this.selOperator.dispatchEvent(new Event('change'));
       }
-      fixture.detectChanges();
-      tick();
-      fixture.detectChanges();
       this.go.click();
-      tick();
       fixture.detectChanges();
+      tick();
     }
 
   }
@@ -93,42 +89,6 @@ describe('AppComponent', () => {
     page.setProperties();
     fixture.detectChanges();
   }));
-
-
-  it( 'should put the uppercased version of the input field\'s input into'
-    + 'the code element', (() => {
-    fixture.detectChanges();
-    // put our test string to the input element
-    const element = fixture.debugElement.query(By.css('.inputclass')).nativeElement;
-    element.value = 'test';
-    element.dispatchEvent(new Event('input'));
-    // tick();
-    fixture.detectChanges();
-    // expect it to be the uppercase version
-    expect(fixture.debugElement
-      .query(By.css('code'))
-      .nativeElement
-      .textContent
-    ).toEqual('test');
-  }));
-
-  it( 'should put the uppercased version of the input field\'s input into'
-    + 'the code element', fakeAsync(() => {
-    fixture.detectChanges();
-    // put our test string to the input element
-    const element = fixture.debugElement.query(By.css('.inputclass')).nativeElement;
-    element.value = 'test';
-    element.dispatchEvent(newEvent('input'));
-    tick();
-    fixture.detectChanges();
-    // expect it to be the uppercase version
-    expect(fixture.debugElement
-      .query(By.css('code'))
-      .nativeElement
-      .textContent
-    ).toEqual('test');
-  }));
-
 
 
   it('should have no history', () => {
@@ -155,12 +115,11 @@ describe('AppComponent', () => {
     page.validate(7, /1\s*\/\s*4/, '0.25');
   });
 
-  fit('should do multiple calcs - html', fakeAsync(() => {
+  it('should do multiple calcs - html', fakeAsync(() => {
 
     page.calcHtml(1, 2);
     page.validate(2, /1\s*\+\s*2/, '3');
 
-/*
     page.calcHtml(2, 3, '*');
     page.validate(3, /2\s*\*\s*3/, '6');
 
@@ -175,7 +134,6 @@ describe('AppComponent', () => {
 
     page.calcHtml(1, 4, '/');
     page.validate(7, /1\s*\/\s*4/, '0.25');
-*/
   }));
 
 

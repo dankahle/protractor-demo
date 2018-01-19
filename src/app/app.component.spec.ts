@@ -35,13 +35,11 @@ describe('AppComponent', () => {
       expect(this.second.textContent).toBe('');
       expect(this.result.textContent).toBe(_result);
 
-/*
       const history = elem.querySelectorAll('table tr');
       expect(history.length).toBe(expectedCount);
       expect(history[1].querySelector('.hist-time').textContent).toMatch(/\d{1,2}\:\d\d\:\d\d/);
       expect(history[1].querySelector('.hist-expr').textContent).toMatch(expr);
       expect(history[1].querySelector('.hist-result').textContent).toContain(_result);
-*/
     }
 
     calcComp(firstVal, secondVal, operatorVal?) {
@@ -65,8 +63,8 @@ describe('AppComponent', () => {
         this.selOperator.dispatchEvent(new Event('change'));
       }
       this.go.click();
-      fixture.detectChanges();
       tick();
+      fixture.detectChanges();
     }
 
   }

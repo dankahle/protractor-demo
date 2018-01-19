@@ -19,7 +19,11 @@ describe('ng-vanilla App', () => {
     result = element(by.id('result'));
   });
 
-  function validateHistory(expectedCount, expr, _result) {
+  function validate(expectedCount, expr, _result) {
+    expect(first.getText()).toBe('');
+    expect(second.getText()).toBe('');
+    expect(result.getText()).toBe(_result);
+
     const history = $$('table tr');
     expect(history.count()).toBe(expectedCount);
     expect(history.get(1).$('.hist-time').getText()).toMatch(/\d{1,2}\:\d\d\:\d\d/);
@@ -47,28 +51,22 @@ describe('ng-vanilla App', () => {
 
   it('should do multiple tests and order results accordingly', () => {
     calc(1, 2);
-    expect(result.getText()).toBe('3');
-    validateHistory(2, '1 + 2', 3);
+    validate(2, '1 + 2', '3');
 
     calc(2, 3, '*');
-    expect(result.getText()).toBe('6');
-    validateHistory(3, '2 * 3', 6);
+    validate(3, '2 * 3', '6');
 
     calc(5, 2, '-');
-    expect(result.getText()).toBe('3');
-    validateHistory(4, '5 - 2', 3);
+    validate(4, '5 - 2', '3');
 
     calc(2, 5, '-');
-    expect(result.getText()).toBe('-3');
-    validateHistory(5, '2 - 5', -3);
+    validate(5, '2 - 5', '-3');
 
     calc(12, 2, '/');
-    expect(result.getText()).toBe('6');
-    validateHistory(6, '12 / 2', 6);
+    validate(6, '12 / 2', '6');
 
     calc(1, 4, '/');
-    expect(result.getText()).toBe('0.25');
-    validateHistory(7, '1 / 4', 0.25);
+    validate(7, '1 / 4', '0.25');
 
   });
 

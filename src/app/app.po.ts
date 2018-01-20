@@ -47,6 +47,8 @@ export class AppPage {
     this.second.value = secondVal.toString();
     this.second.dispatchEvent(new Event('input'));
     if (operatorVal) {
+      // couldn't get this to work for some reason. Oh, maybe need to click on the select first to get the popup menu, then it works?
+      // funny that it works with e2e tests without doing that though
       // (<HTMLOptionElement>this.selOperator.querySelector(`option[value="${operatorVal}"]`)).click();
       this.selOperator.value = operatorVal;
       this.selOperator.dispatchEvent(new Event('change'));

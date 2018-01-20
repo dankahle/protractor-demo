@@ -6,11 +6,12 @@ import {FormsModule} from '@angular/forms';
 import {$$} from 'protractor';
 import {By} from '@angular/platform-browser';
 import {newEvent} from '../testing/helpers';
-import {AppTest} from './app.to';
+import {AppPage} from './app.po';
 
 describe('AppComponent', () => {
   let fixture: ComponentFixture<AppComponent>;
-  let test: AppTest;
+  let elem;
+  let page: AppPage;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -23,52 +24,65 @@ describe('AppComponent', () => {
 
   beforeEach(async(() => {
     fixture = TestBed.createComponent(AppComponent);
-    test = new AppTest(fixture);
+    elem = fixture.nativeElement;
+    page = new AppPage(fixture);
   }));
 
+  function validate(expectedCount, expr, _result) {
+    expect(page.first.textContent).toBe('');
+    expect(page.second.textContent).toBe('');
+    expect(page.result.textContent).toBe(_result);
+
+    const history = elem.querySelectorAll('table tr');
+    expect(history.length).toBe(expectedCount);
+    expect(history[1].querySelector('.hist-time').textContent).toMatch(/\d{1,2}\:\d\d\:\d\d/);
+    expect(history[1].querySelector('.hist-expr').textContent).toMatch(expr);
+    expect(history[1].querySelector('.hist-result').textContent).toContain(_result);
+  }
+
   it('should have no history', () => {
-    expect(test.getHistory().length).toBe(1);
+    expect(page.getHistory().length).toBe(1);
   });
 
   it('should do multiple calcs - comp', () => {
-    test.calcComp(1, 2);
-    test.validate(2, /1\s*\+\s*2/, '3');
+    page.calcComp(1, 2);
+    validate(2, /1\s*\+\s*2/, '3');
 
-    test.calcComp(2, 3, '*');
-    test.validate(3, /2\s*\*\s*3/, '6');
+    page.calcComp(2, 3, '*');
+    validate(3, /2\s*\*\s*3/, '6');
 
-    test.calcComp(5, 2, '-');
-    test.validate(4, /5\s*\-\s*2/, '3');
+    page.calcComp(5, 2, '-');
+    validate(4, /5\s*\-\s*2/, '3');
 
-    test.calcComp(2, 5, '-');
-    test.validate(5, /2\s*\-\s*5/, '-3');
+    page.calcComp(2, 5, '-');
+    validate(5, /2\s*\-\s*5/, '-3');
 
-    test.calcComp(12, 2, '/');
-    test.validate(6, /12\s*\/\s*2/, '6');
+    page.calcComp(12, 2, '/');
+    validate(6, /12\s*\/\s*2/, '6');
 
-    test.calcComp(1, 4, '/');
-    test.validate(7, /1\s*\/\s*4/, '0.25');
+    page.calcComp(1, 4, '/');
+    validate(7, /1\s*\/\s*4/, '0.25');
   });
 
   it('should do multiple calcs - html', fakeAsync(() => {
 
-    test.calcHtml(1, 2);
-    test.validate(2, /1\s*\+\s*2/, '3');
+    page.calcHtml(1, 2);
+    validate(2, /1\s*\+\s*2/, '3');
 
-    test.calcHtml(2, 3, '*');
-    test.validate(3, /2\s*\*\s*3/, '6');
+    page.calcHtml(2, 3, '*');
+    validate(3, /2\s*\*\s*3/, '6');
 
-    test.calcHtml(5, 2, '-');
-    test.validate(4, /5\s*\-\s*2/, '3');
+    page.calcHtml(5, 2, '-');
+    validate(4, /5\s*\-\s*2/, '3');
 
-    test.calcHtml(2, 5, '-');
-    test.validate(5, /2\s*\-\s*5/, '-3');
+    page.calcHtml(2, 5, '-');
+    validate(5, /2\s*\-\s*5/, '-3');
 
-    test.calcHtml(12, 2, '/');
-    test.validate(6, /12\s*\/\s*2/, '6');
+    page.calcHtml(12, 2, '/');
+    validate(6, /12\s*\/\s*2/, '6');
 
-    test.calcHtml(1, 4, '/');
-    test.validate(7, /1\s*\/\s*4/, '0.25');
+    page.calcHtml(1, 4, '/');
+    validate(7, /1\s*\/\s*4/, '0.25');
   }));
 
 

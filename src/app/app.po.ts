@@ -1,10 +1,9 @@
-declare const expect: any;
 import {ComponentFixture} from '@angular/core/testing/src/component_fixture';
 import {AppComponent} from './app.component';
 import {tick} from '@angular/core/testing';
 
 
-export class AppTest {
+export class AppPage {
   go: HTMLElement;
   result: HTMLElement;
   first: HTMLInputElement;
@@ -26,18 +25,6 @@ export class AppTest {
     this.first = <HTMLInputElement>this.elem.querySelector('[name="first"]');
     this.second = <HTMLInputElement>this.elem.querySelector('[name="second"]');
     this.selOperator = <HTMLSelectElement>this.elem.querySelector('[name="operator"]');
-  }
-
-  validate(expectedCount, expr, _result) {
-    expect(this.first.textContent).toBe('');
-    expect(this.second.textContent).toBe('');
-    expect(this.result.textContent).toBe(_result);
-
-    const history = this.elem.querySelectorAll('table tr');
-    expect(history.length).toBe(expectedCount);
-    expect(history[1].querySelector('.hist-time').textContent).toMatch(/\d{1,2}\:\d\d\:\d\d/);
-    expect(history[1].querySelector('.hist-expr').textContent).toMatch(expr);
-    expect(history[1].querySelector('.hist-result').textContent).toContain(_result);
   }
 
   getHistory() {

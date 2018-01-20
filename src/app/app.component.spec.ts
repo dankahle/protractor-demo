@@ -6,16 +6,11 @@ import {FormsModule} from '@angular/forms';
 import {$$} from 'protractor';
 import {By} from '@angular/platform-browser';
 import {newEvent} from '../testing/helpers';
-import {AppTest} from './app-test';
-
+import {AppTest} from './app.to';
 
 describe('AppComponent', () => {
-  let comp: AppComponent;
   let fixture: ComponentFixture<AppComponent>;
-  let elem: HTMLElement;
-  let delem: DebugElement;
   let test: AppTest;
-
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -30,7 +25,6 @@ describe('AppComponent', () => {
     fixture = TestBed.createComponent(AppComponent);
     test = new AppTest(fixture);
   }));
-
 
   it('should have no history', () => {
     expect(test.getHistory().length).toBe(1);

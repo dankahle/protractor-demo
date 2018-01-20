@@ -1,3 +1,4 @@
+declare const expect: any;
 import {ComponentFixture} from '@angular/core/testing/src/component_fixture';
 import {AppComponent} from './app.component';
 import {tick} from '@angular/core/testing';

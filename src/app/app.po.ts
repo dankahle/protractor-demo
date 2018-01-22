@@ -3,7 +3,7 @@ import {AppComponent} from './app.component';
 import {tick} from '@angular/core/testing';
 
 
-export class AppPage {
+export class AppPO {
   go: HTMLElement;
   result: HTMLElement;
   first: HTMLInputElement;

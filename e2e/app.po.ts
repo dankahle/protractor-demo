@@ -1,6 +1,6 @@
 import {$$, browser, by, element, ElementFinder} from 'protractor';
 
-export class AppPage {
+export class AppPO {
   first: ElementFinder;
   operator: ElementFinder;
   second: ElementFinder;

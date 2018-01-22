@@ -1,12 +1,12 @@
-import {AppPage} from './app.po';
+import {AppPO} from './app.po';
 import {$, $$, browser, by, element, ElementArrayFinder, ElementFinder, ElementHelper} from 'protractor';
 
 describe('ng-vanilla App', () => {
-  let page: AppPage;
+  let page: AppPO;
 
   beforeEach(() => {
     browser.get('/');
-    page = new AppPage();
+    page = new AppPO();
   });
 
   function validate(expectedCount, expr, _result) {
@@ -14,7 +14,7 @@ describe('ng-vanilla App', () => {
     expect(page.second.getText()).toBe('');
     expect(page.result.getText()).toBe(_result);
 
-    const history = $$('table tr');
+    const history = $$('.table tr');
     expect(history.count()).toBe(expectedCount);
     expect(history.get(1).$('.hist-time').getText()).toMatch(/\d{1,2}\:\d\d\:\d\d/);
     expect(history.get(1).$('.hist-expr').getText()).toContain(expr);
@@ -26,7 +26,7 @@ describe('ng-vanilla App', () => {
   });
 
   it('should have no history', () => {
-    const history = $('.table').$$('tr');
+    const history = $$('.table tr');
     expect(history.count()).toBe(1); // one for table header
   });
 
